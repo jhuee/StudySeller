@@ -13,25 +13,27 @@ import org.springframework.web.bind.annotation.*;
 // 예제 6.27
 @RestController
 @Service
-@RequestMapping("/Document")
+@RequestMapping(value = "/document")
+
 public class DocumentController {
-    private final DocumentService  documentService;
+
+    private final DocumentService documentService;
 
     @Autowired
-    public DocumentController(DocumentService  documentService) {
-        this. documentService =  documentService;
+    public DocumentController(DocumentService documentService) {
+        this.documentService = documentService;
     }
 
-    @GetMapping()
-    public ResponseEntity<DocumentResponseDto> getDocument(Long number) {
-        DocumentResponseDto  documentResponseDto =  documentService.getDocument(number);
+    @GetMapping("/document")
+    public ResponseEntity<DocumentResponseDto> getDocument(Long DocSN) {
+        DocumentResponseDto documentResponseDto = documentService.getDocument(DocSN);
 
-        return ResponseEntity.status(HttpStatus.OK).body( documentResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(documentResponseDto);
     }
 
     @PostMapping()
-    public ResponseEntity<DocumentResponseDto> createDocument(@RequestBody DocumentDto  documentDto) {
-        DocumentResponseDto  documentResponseDto =  documentService.saveDocument(documentDto);
+    public ResponseEntity<DocumentResponseDto> createDocument(@RequestBody DocumentDto documentDto) {
+        DocumentResponseDto documentResponseDto = documentService.saveDocument(documentDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(documentResponseDto);
     }
@@ -39,18 +41,19 @@ public class DocumentController {
     @PutMapping()
     public ResponseEntity<DocumentResponseDto> changeDocTitle(
             @RequestBody ChangeDocTitleDto changeDocTitleDto) throws Exception {
-        DocumentResponseDto  documentResponseDto =  documentService.changeDocTitle(
+        DocumentResponseDto documentResponseDto = documentService.changeDocTitle(
                 changeDocTitleDto.getDocSN(),
                 changeDocTitleDto.getDocTitle());
 
-        return ResponseEntity.status(HttpStatus.OK).body( documentResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(documentResponseDto);
 
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteDocument(Long number) throws Exception {
-        documentService.deleteDocument(number);
+    public ResponseEntity<String> deleteDocument(Long DocSN) throws Exception {
+        documentService.deleteDocument(DocSN);
 
         return ResponseEntity.status(HttpStatus.OK).body("정상적으로 삭제되었습니다.");
     }
 }
+
