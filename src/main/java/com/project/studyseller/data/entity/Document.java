@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Document {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)     //JPA 구현체가 자동으로 생성 전략
+    @GeneratedValue(strategy = GenerationType.IDENTITY)     //JPA 구현체가 자동으로 생성 전략
     private Long DocSN;    //문서 코드
 
 
